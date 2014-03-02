@@ -7,8 +7,10 @@ gem 'pg', '0.17.1'
 # Use sqlite3 as the database for Active Record
 group :development, :test do 
 	gem 'rspec-rails', '2.14.1'
-	 gem 'guard-rspec', '4.2.7'
-
+	gem 'guard-rspec', '4.2.7'
+	gem 'guard-spork', '1.5.1'
+	gem 'spork-rails', '4.0.0'
+	gem 'childprocess', '0.5.1'
 end
 
 group :test do
