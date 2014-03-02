@@ -25,6 +25,8 @@ gem 'uglifier', '>= 2.4.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.1'
 
+gem 'libnotify', '0.8.2'
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
