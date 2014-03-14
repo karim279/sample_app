@@ -28,4 +28,3 @@ end
 Then /^they should see a signout link$/ do
 	expect(page).to have_link "Sign out", href: signout_path
 end
-
