@@ -102,7 +102,8 @@ describe "UserPages" do
 			end
 
 			before do
-				# valid_signin user, no_capybara: true
+				click_link "Sign out"
+				valid_signin user, no_capybara: true
 				patch user_path(user), params
 			end
 
@@ -139,7 +140,7 @@ describe "UserPages" do
 			describe 'as an admin user' do
 				let(:admin) { FactoryGirl.create(:admin) }
 				before do
-					sign_out if signed_in?
+					click_link "Sign out"
 					valid_signin admin
 					visit users_path	
 				end

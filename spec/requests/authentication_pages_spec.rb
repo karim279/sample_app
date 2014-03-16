@@ -34,7 +34,7 @@ describe "Authentication" do
 			it { should_not have_link('Sign in',	href: signin_path(user)) }
 
 			describe "followed by signout" do
-				before { click_link "Sign out" }
+				before { valid_signout user }
 				it { should have_link("Sign in") }
 				it { should_not have_link('Profile', 			href: user_path(user)) }
 				it { should_not have_link('Sign out', 		href: signout_path) }
@@ -117,7 +117,17 @@ describe "Authentication" do
 				specify { expect(response).to redirect_to root_url }
 			end
 
-			describe 'as non-admin users' do
+			describe "submitting a GET request to the Sessions#new action" do
+				before { get signin_path }
+				specify { expect(response).to redirect_to root_url }
+			end
+
+			describe "submitting a POST request to the Sessions#create action" do
+				before { post sessions_path }
+				specify { expect(response).to redirect_to root_url }
+			end
+
+			describe 'as a non-admin user' do
 
 				describe "submitting a DELETE request to the Users#destroy action" do
 					before { delete user_path(another_user) }
@@ -136,6 +146,18 @@ describe "Authentication" do
 				describe "submitting a PATCH request to the Users#update action" do
 					before { patch user_path(another_user) }
 					specify { expect(response).to redirect_to root_url }
+				end
+			end
+
+			describe "as an admin user" do
+				let(:admin) { FactoryGirl.create(:admin) }
+				before do 
+					valid_signout user, no_capybara: true
+					valid_signin admin, no_capybara: true
+				end
+
+				describe "submitting a DELETE request to the Users#destroy action to delete himself" do
+					specify { expect { delete user_path(admin) }.not_to change(User, :count) }
 				end
 			end
 		end
